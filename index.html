@@ -50,7 +50,54 @@
         <br>
         <a href="https://maps.app.goo.gl/k7kCHfucSjMHJPaW9" target="_blank" class="brutal-button">OPEN IN MAPS</a>
       </div>
+
+      <div class="rsvp-section">
+        <h3>Will you attend?</h3>
+        <div class="rsvp-buttons">
+          <button id="btn-yes" class="brutal-button yes-btn">YES! 🎉</button>
+          <button id="btn-no" class="brutal-button no-btn">No 😢</button>
+        </div>
+      </div>
     </div>
   </div>
+
+  <script>
+    const noBtn = document.getElementById('btn-no');
+    const yesBtn = document.getElementById('btn-yes');
+
+    let offsetX = 0;
+    let offsetY = 0;
+
+    const escapeBtn = () => {
+      // Jump a very short distance
+      const jumpX = (Math.random() * 40 + 20) * (Math.random() > 0.5 ? 1 : -1);
+      const jumpY = (Math.random() * 40 + 20) * (Math.random() > 0.5 ? 1 : -1);
+      
+      offsetX += jumpX;
+      offsetY += jumpY;
+      
+      // Constrain it to its own small zone on the right
+      // Prevent it from moving left into the YES button's space
+      if (offsetX < -5) offsetX = -5;
+      
+      // Keep it within a tight box
+      if (offsetX > 80) offsetX = 80;
+      if (offsetY < -40) offsetY = -40;
+      if (offsetY > 40) offsetY = 40;
+      
+      noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    };
+
+    noBtn.addEventListener('mouseover', escapeBtn);
+    noBtn.addEventListener('mousemove', escapeBtn);
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      escapeBtn();
+    });
+
+    yesBtn.addEventListener('click', () => {
+      alert("Awesome! Can't wait to see you there! 🎓🎉");
+    });
+  </script>
 </body>
 </html>
